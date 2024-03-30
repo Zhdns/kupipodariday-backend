@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable, UseGuards } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UseGuards,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/user/user.model';
 import { UserService } from 'src/user/user.service';
