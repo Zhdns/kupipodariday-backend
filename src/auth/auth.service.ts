@@ -1,12 +1,13 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, UseGuards } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/user/user.model';
 import { UserService } from 'src/user/user.service';
 import { CreateUserDto } from 'src/user/userDto/createUser.dto';
 import * as bcrypt from 'bcryptjs';
 import { LoginUserDto } from 'src/user/userDto/loginUser.dto';
-import { SIGNIN_ERROR } from 'src/service/errors';
-import { LANGUAGE } from 'src/service/constants';
+import { SIGNIN_ERROR, USER_EXIST_ERROR } from 'src/helpers/errors';
+import { LANGUAGE } from 'src/helpers/constants';
+import { JwtAuthGuard } from './jwtAuth.guard';
 
 @Injectable()
 export class AuthService {
@@ -48,7 +49,10 @@ export class AuthService {
     );
     if (candidate) {
       console.log(`User :  ${userDto} `);
-      throw new HttpException('user is already exist', HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        USER_EXIST_ERROR(LANGUAGE.RU),
+        HttpStatus.BAD_REQUEST,
+      );
     }
     const hashPass = await bcrypt.hash(userDto.password, 5);
     const user = await this.userService.createUser({
@@ -72,6 +76,7 @@ export class AuthService {
     };
   }
 
+  @UseGuards(JwtAuthGuard)
   async singIn(userDto: LoginUserDto) {
     console.log(userDto);
     const user = await this.validation(userDto);

@@ -7,20 +7,24 @@ import {
   Post,
   Req,
   UnauthorizedException,
+  UseFilters,
   UseGuards,
   UsePipes,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './userDto/createUser.dto';
-import { FOREIGN_USER_SCHEMA, REQUEST_ID } from 'src/service/utility';
-import { ValidationPipe } from 'src/service/validation.pipe';
+import { FOREIGN_USER_SCHEMA, REQUEST_ID } from 'src/helpers/utility';
+import { ValidationPipe } from 'src/helpers/validation.pipe';
 import { JwtAuthGuard } from 'src/auth/jwtAuth.guard';
 import { FindUserDto } from './userDto/findUser.dro';
+import { ValidationExceptionFilter } from 'src/helpers/validationExeptionFilter';
+import { UpdateUserDto } from './userDto/updateUser.dto';
 
 @Controller('/users')
 export class UserController {
   constructor(private userService: UserService) {}
 
+  @UseFilters(new ValidationExceptionFilter())
   @UsePipes(new ValidationPipe())
   @Post()
   create(@Body() userDto: CreateUserDto) {
@@ -28,6 +32,7 @@ export class UserController {
     return this.userService.createUser(userDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   getAllUsers() {
     return this.userService.getAllUsers();
@@ -46,11 +51,13 @@ export class UserController {
     return this.userService.getUserWishes(userId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':username')
   getUserByName(@Param('username') username: string) {
     return this.userService.getUserByUsername(username);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':username/wishes')
   async getWishesByUsername(@Param('username') username: string) {
     const user = await this.userService.getUserByUsername(username);
@@ -60,6 +67,7 @@ export class UserController {
     return user.wishes;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('/find')
   async findUser(@Body() payload: FindUserDto) {
     console.log(payload);
@@ -77,7 +85,7 @@ export class UserController {
 
   @UseGuards(JwtAuthGuard)
   @Patch('me')
-  updateUser(@Body() userDto: CreateUserDto, @Req() req: any) {
+  updateUser(@Body() userDto: UpdateUserDto, @Req() req: any) {
     const user = this.userService.updateUser(REQUEST_ID(req), userDto);
     return user;
   }

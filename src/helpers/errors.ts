@@ -102,3 +102,36 @@ export const RAISED_ERROR = (lang: LANGUAGE) => {
 
   return errorEng;
 };
+
+export const USER_EXIST_ERROR = (lang: LANGUAGE) => {
+  const errorEng = 'Username or Email heve already used';
+  const errorRu = 'Такой юзернейи или почта уже использкется';
+
+  if (lang === LANGUAGE.RU) {
+    return errorRu;
+  }
+
+  return errorEng;
+};
+
+export const WISH_BELONGING_ERROR = (lang: LANGUAGE) => {
+  const errorEng = 'This wish is belong for curent user';
+  const errorRu = 'Нельзя поддерживать свои подарки';
+
+  if (lang === LANGUAGE.RU) {
+    return errorRu;
+  }
+
+  return errorEng;
+};
+
+export const OFFER_ERROR = (lang: LANGUAGE) => {
+  const errorEng = 'Offer is more them rest of the price';
+  const errorRu = 'Предложение выше, чем остаток цены';
+
+  if (lang === LANGUAGE.RU) {
+    return errorRu;
+  }
+
+  return errorEng;
+};

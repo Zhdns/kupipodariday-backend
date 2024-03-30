@@ -8,7 +8,8 @@ import { InjectModel } from '@nestjs/sequelize';
 import { User } from './user.model';
 import { CreateUserDto } from './userDto/createUser.dto';
 import { Wishes } from 'src/wishes/wishes.model';
-import { FIND_ONE, FIND_PK } from 'src/service/utility';
+import { FIND_ONE, FIND_PK } from 'src/helpers/utility';
+import { UpdateUserDto } from './userDto/updateUser.dto';
 
 @Injectable()
 export class UserService {
@@ -48,7 +49,7 @@ export class UserService {
     return user.wishes;
   }
 
-  async updateUser(userId: number, userDto: CreateUserDto) {
+  async updateUser(userId: number, userDto: UpdateUserDto) {
     const user = await FIND_PK(this.userRepository, userId);
     Object.assign(user, userDto);
     await user.save();

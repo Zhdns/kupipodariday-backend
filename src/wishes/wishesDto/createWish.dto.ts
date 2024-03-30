@@ -1,11 +1,11 @@
 import { IsNumber, IsString, IsUrl, Length } from 'class-validator';
-import { LANGUAGE } from 'src/service/constants';
+import { LANGUAGE } from 'src/helpers/constants';
 import {
   LENGTH_VALIDATION_ERROR,
   NUMBER_VALDATION_ERROR,
   STRING_VALDATION_ERROR,
   URL_VALIDATION_ERROR,
-} from 'src/service/errors';
+} from 'src/helpers/errors';
 
 export class CreateWishDto {
   @Length(1, 250, { message: LENGTH_VALIDATION_ERROR(1, 250, LANGUAGE.RU) })

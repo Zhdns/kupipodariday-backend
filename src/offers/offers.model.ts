@@ -6,6 +6,8 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
+import { LANGUAGE } from 'src/helpers/constants';
+import { NUMBER_VALDATION_ERROR } from 'src/helpers/errors';
 import { User } from 'src/user/user.model';
 import { Wishes } from 'src/wishes/wishes.model';
 
@@ -31,6 +33,13 @@ export class Offers extends Model<Offers, OfferInterface> {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
+    validate: {
+      num(value: any) {
+        if (typeof value !== 'number') {
+          throw new Error(NUMBER_VALDATION_ERROR(LANGUAGE.RU));
+        }
+      },
+    },
   })
   amount: number;
 
@@ -40,7 +49,6 @@ export class Offers extends Model<Offers, OfferInterface> {
   })
   hidden: boolean | null;
 
-  @ForeignKey(() => User)
   @Column({
     type: DataType.STRING,
     allowNull: false,

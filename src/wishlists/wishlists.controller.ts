@@ -24,11 +24,13 @@ export class WishlistsController {
     return this.wishlistsService.createWishlist(wishlistsDto, userId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   getWishlists() {
     return this.wishlistsService.getWishlists();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async getWishesByUsername(@Param('id') id: number) {
     const wishlist = await this.wishlistsService.getWishlistById(id);

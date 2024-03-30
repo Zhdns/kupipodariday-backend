@@ -7,14 +7,17 @@ import {
   URL_VALIDATION_ERROR,
 } from 'src/helpers/errors';
 
-export class CreateUserDto {
+export class UpdateUserDto {
+  @IsOptional()
   @IsString()
   @Length(2, 30, { message: LENGTH_VALIDATION_ERROR(2, 30, LANGUAGE.RU) })
   readonly username: string;
 
+  @IsOptional()
   @IsEmail({}, { message: EMAIL_VALIDATION_ERROR(LANGUAGE.RU) })
   readonly email: string;
 
+  @IsOptional()
   @IsString({ message: STRING_VALDATION_ERROR(LANGUAGE.RU) })
   readonly password: string;
 

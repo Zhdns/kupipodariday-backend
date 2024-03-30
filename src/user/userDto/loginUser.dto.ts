@@ -1,6 +1,6 @@
 import { IsString } from 'class-validator';
-import { LANGUAGE } from 'src/service/constants';
-import { STRING_VALDATION_ERROR } from 'src/service/errors';
+import { LANGUAGE } from 'src/helpers/constants';
+import { STRING_VALDATION_ERROR } from 'src/helpers/errors';
 
 export class LoginUserDto {
   @IsString({ message: STRING_VALDATION_ERROR(LANGUAGE.RU) })

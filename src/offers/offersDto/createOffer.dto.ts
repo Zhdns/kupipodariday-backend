@@ -1,6 +1,6 @@
 import { IsNumber } from 'class-validator';
-import { LANGUAGE } from 'src/service/constants';
-import { NUMBER_VALDATION_ERROR } from 'src/service/errors';
+import { LANGUAGE } from 'src/helpers/constants';
+import { NUMBER_VALDATION_ERROR } from 'src/helpers/errors';
 
 export class CreateOfferDto {
   @IsNumber({}, { message: NUMBER_VALDATION_ERROR(LANGUAGE.RU) })

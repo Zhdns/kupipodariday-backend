@@ -10,9 +10,9 @@ import { CreateWishDto } from './wishesDto/createWish.dto';
 import { UserService } from 'src/user/user.service';
 import { User } from 'src/user/user.model';
 import { Offers } from 'src/offers/offers.model';
-import { FIND_PK } from 'src/service/utility';
-import { ACCESS_ERROR, RAISED_ERROR } from 'src/service/errors';
-import { LANGUAGE } from 'src/service/constants';
+import { FIND_PK } from 'src/helpers/utility';
+import { ACCESS_ERROR, RAISED_ERROR } from 'src/helpers/errors';
+import { LANGUAGE } from 'src/helpers/constants';
 
 @Injectable()
 export class WishService {

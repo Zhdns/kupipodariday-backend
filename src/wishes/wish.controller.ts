@@ -34,6 +34,7 @@ export class WishController {
     return this.wishService.getPopularGift();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   getOwnWish(@Param('id') id: number) {
     return this.wishService.getWishById(id);
